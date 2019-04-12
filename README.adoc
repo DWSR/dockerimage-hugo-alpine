@@ -1,0 +1,31 @@
+= Alpine-Based Hugo Docker Image
+
+== Description
+
+This is a Docker image containing link:https://github.com/gohugoio/hugo[hugo]. It is intended to be
+used to as part of the development cycle of a Hugo-powered static site. It is *not* intended to be
+used in any production-like setups.
+
+Hugo expects the site to be located in the `WORKDIR`, which is `/hugo-site` by default. If you are
+basing your own image from this one, you can either override this or copy your site contents there.
+
+== Examples
+
+=== Serve Site Locally
+
+This will run Hugo in its `serve` mode, which will build and rebuild the contents of the site as it
+is changed. To access the local site, point your browser at `http://localhost:1313`.
+
+[source, sh]
+----
+docker run -p 1313:1313 -v "$(pwd):/hugo-site" --rm hugo-alpine
+----
+
+=== Build Site
+
+This will build the site and place it in the `public/` folder.
+
+[source, sh]
+----
+docker run -v "$(pwd):/hugo-site" --rm hugo-alpine hugo
+----
